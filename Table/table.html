@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table, td , th{
+        border: 1px solid black;
+        padding: 10px;
+    }
+    </style>
+    <link rel="stylesheet" href="table.css"> 
+</head>
+<body>
+    <form id="details" novalidate>
+        <input type ="text" id="name" name="name" placeholder="Enter your name">
+        <input type ="number" id="age"  name="age" placeholder="Enter your age">
+        <button type="submit" id="submit-button">Add</button> 
+        <button type="reset" id="clear-button" onclick="clearBrowserStorage()">Clear</button> 
+    </form>
+    <div class="table-container">
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+            <tbody id="personDetailsBody">
+
+            </tbody>
+        </table>
+    </div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="table.js"></script>
+</body>
+</html>

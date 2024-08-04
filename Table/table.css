@@ -1,0 +1,22 @@
+.table-container {
+    padding: 50px;
+}
+
+#details {
+    padding : 10px !important;
+}
+
+#submit-button, #clear-button {
+    margin-left: 15px ;
+    padding: 10px;
+}
+
+#name, #age {
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 15px;
+}
+
+.fa-trash, .fa-pencil {
+   cursor: pointer;
+}
