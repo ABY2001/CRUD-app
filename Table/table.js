@@ -54,7 +54,7 @@ function saveDataInLocalStorage(names, ages) {
   if (tableDataFlag) {
     localStorage.setItem('names', JSON.stringify(names))  // stored each value in local storage
     localStorage.setItem('ages', JSON.stringify(ages))
-    // localStorage.setItem('islocalStorageHaveData', true);  // flag to check that is local storage already has data.if lc have data retreive it and add to bio data class,this bioclass will give data as keyvalue pair and it pushed into array                                                                                                                                                   
+    // localStorage.setItem('islocalStorageHaveData', true);  // flag to check that is local storage already has data.if lc have data retreive it and Add to bio data class,this bioclass will give data as keyvalue pair and it pushed into array                                                                                                                                                   
     nameFromLocalStorage = JSON.parse(localStorage.getItem("names"))
     ageFromLocalStorage = JSON.parse(localStorage.getItem("ages")) // it will give an array of objects with data retreived from local storage
     dataFromBrowserStorage.push(new biodata(nameFromLocalStorage, ageFromLocalStorage));
@@ -115,7 +115,7 @@ function updateRow() {
   let updatedAge = rows[editedTableRowIndex - 1 ].cells[1].innerText = document.getElementById("age").value;
   editFlag = false;
   clearInputField();
-  document.getElementById("submit-button").innerHTML = "add";
+  document.getElementById("submit-button").innerHTML = "Add";
   updatedDataArray.push(new updatedData(updatedName, updatedAge, editedTableRowIndex))
   localStorage.setItem('updatedDataArray', JSON.stringify(updatedDataArray));
   updateTableFromLocalStorageFlag = true;
@@ -126,7 +126,7 @@ function clearInputField() {
   document.getElementById("age").value = "";
 }
 function buttonNameChange() {
-  editFlag ? document.getElementById("submit-button").innerHTML = "Update" : document.getElementById("submit-button").innerHTML = "add";
+  editFlag ? document.getElementById("submit-button").innerHTML = "Update" : document.getElementById("submit-button").innerHTML = "Add";
 }
 
 // Function to delete a row from both the table and local storage
@@ -226,7 +226,9 @@ function clearBrowserStorage() {
   dataFromBrowserStorage = [];
   tableDataFlag = false;
   document.getElementById("personDetailsBody").innerHTML = "";
-  document.getElementById("submit-button").innerHTML = "add";
+  document.getElementById("submit-button").innerHTML = "Add";
   document.getElementById("name").value = "";
   document.getElementById("age").value = "";
 }
+
+// test
