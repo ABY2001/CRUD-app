@@ -3,12 +3,26 @@ var tableDataFlag = false;
 var editedTableRowIndex = "";
 var dataFromBrowserStorage = [];
 checkingIsItInitialLoad();
+
 class biodata {
   constructor(nameFromLocalStorage, ageFromLocalStorage) {
     this.name = nameFromLocalStorage;
     this.age = ageFromLocalStorage;
   }
+  async validation(names, ages) {
+    if (names === null || names.length === 0) {
+      alert("Please fill namefield")
+      return false;
+    } else if (ages === null || ages.length === 0) {
+      alert("Please fill age field")
+      return false;
+    } else {
+      return true;
+    }
+  }
 }
+
+let biodataClass = new biodata();
 var updatedDataArray = [];
 class updatedData {
   constructor(updatedName, updatedAge,editRowIndex) {
@@ -21,32 +35,23 @@ let personalDetails = new Map();
 
 document.getElementById("details").addEventListener("submit",  (event) => {
   event.preventDefault();
-  editFlag ? updateRow() : SubmitEvent(event);
+  editFlag ? updateRow() : SubmitEvent();
 })
 
 let inputFieldDetailsArray = [];
 
-function SubmitEvent(event) {
+async function SubmitEvent() {
   let nameField = document.getElementById("name");
   const names = nameField.value;
   let ageField = document.getElementById("age");
   const ages = ageField.value;
-  validation(names, ages);
-  insertDataToTable();
-  clearInputField();
-  saveDataInLocalStorage(names, ages)
-}
-
-function validation(names, ages) {
-  if (names === null || names.length === 0) {
-    alert("Please fill namefield")
-    return false;
-  } else if (ages === null || ages.length === 0) {
-    alert("Please fill age field")
-    return false;
-  } else {
-    inputFieldDetailsArray.push(names)
-    inputFieldDetailsArray.push(ages)
+  const isValid = await biodataClass.validation(names, ages);
+  if (isValid) {
+    inputFieldDetailsArray.push(names);
+    inputFieldDetailsArray.push(ages);   
+    insertDataToTable();
+    clearInputField();
+    saveDataInLocalStorage(names, ages);
   }
 }
 
@@ -107,18 +112,22 @@ function editRow(button) {
   buttonNameChange()
 }
 
-function updateRow() {
+async function updateRow() {
   let table = document.getElementById("personDetailsBody");
   let rows = table.rows;
   tableDataFlag = true;
-  let updatedName = rows[editedTableRowIndex - 1].cells[0].innerText = document.getElementById("name").value;
-  let updatedAge = rows[editedTableRowIndex - 1 ].cells[1].innerText = document.getElementById("age").value;
-  editFlag = false;
-  clearInputField();
-  document.getElementById("submit-button").innerHTML = "Add";
-  updatedDataArray.push(new updatedData(updatedName, updatedAge, editedTableRowIndex))
-  localStorage.setItem('updatedDataArray', JSON.stringify(updatedDataArray));
-  updateTableFromLocalStorageFlag = true;
+  let isValid = await biodataClass.validation(document.getElementById("name").value, document.getElementById("age").value);
+  if (isValid) {
+    let updatedName = rows[editedTableRowIndex - 1].cells[0].innerText = document.getElementById("name").value;
+    let updatedAge = rows[editedTableRowIndex - 1 ].cells[1].innerText = document.getElementById("age").value;
+    editFlag = false;
+    clearInputField();
+    document.getElementById("submit-button").innerHTML = "Add";
+    updatedDataArray.push(new updatedData(updatedName, updatedAge, editedTableRowIndex))
+    localStorage.setItem('updatedDataArray', JSON.stringify(updatedDataArray));
+    updateTableFromLocalStorageFlag = true;
+  }
+
 }
 
 function clearInputField() {
